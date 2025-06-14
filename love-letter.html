@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday Wish For Bbylyy</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" href="images/favicon.ico">
+</head>
+<body>
+    <script>
+    if (!sessionStorage.getItem('birthdaySiteAuthenticated')) {
+        window.location.href = "auth/login.html";
+    }
+</script>
+    <nav class="custom-icon-nav">
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+            <span class="nav-text">Home</span>
+        </a>
+        <a href="love-letter.html" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/>
+            </svg>
+            <span class="nav-text">Love Letter</span>
+        </a>
+        <a href="music.html" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+            <span class="nav-text">Music</span>
+        </a>
+    </div>
+    <button onclick="logout()" class="logout-btn">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+        </svg>
+        <span class="nav-text">Logout</span>
+    </button>
+</nav>
+
+<script>
+    function logout() {
+        sessionStorage.removeItem('birthdaySiteAuthenticated');
+        window.location.href = "auth/login.html";
+    }
+</script>
+
+    <div class="container">
+        <h1>My Birthday Letter to You</h1>
+                <div class="container-mm">
+                    <div class="letter">
+                        <p>သို့ ကိုကို့ဘေဘီလေး,</p>
+                        <p>ကိုကိုဘေဘီနဲ့ဆုံတွေ့ခဲ့ရတာကိုအရမ်းဝမ်းသာပါတယ်။ 
+                            အရမ်းလည်းပျော်မိပါတယ်တယ်။ အရင်ဆုံးကိုကို့ဘေဘီလေးမွေးနေ့မှာ 
+                            ပျော်ရွှင်ပါစေလို့ဆုမွန်ကောင်းတောင်းပေးလိုက်ပါတယ်။ 
+                            ကိုကို့အတွက်ဘေဘီနဲ့ တွေ့ဆုံခြင်းဟာ ဘယ်အရာနဲ့မှတန်ဖိုးမဖြတ်နိုင်ပါဘူး။ ဒါကြောင့်မလို့ ဘေဘီလေးကို 
+                            ကိုကိုအရမ်းတန်ဖိုးထားပေးမှာပါ။ အခုကျရောက်တဲ့ဘေဘီလေးရဲ့ ၁၇နှစ်ပြည့်မွေးနေ့ကနေပြီးတော့
+                            အဘိုးကြီး၊ အဘွားကြီးတွေအရွယ် ကြီးတဲ့အထိဘေဘီနဲ့အတူတူရှိနေချင်ကြောင်းလည်း
+                            ကိုကိုပြောချင်ပါတယ်။ ဒါကြောင့်မလို့ ကိုကို့ ကိုထားမသွားပါနဲ့ပေါ့ ဟိဟိ။ 
+                            ဘေဘီကတော့ ဘယ်လိုနေမလည်းမသိပေမဲ့ ကိုကို့ဖက်ကတော့ ဘေဘီနဲ့စကားပြောတိုင်း
+                            ရင်ခွင်ခုန်ပြီး အမြဲပြုံးနေမိတယ်။ ဒါကြောင့်မလို့ဘေဘီလေးကိုများကြီးချစ်တာကိုလည်း သိစေချင်ပါတယ်။
+                            နောက်ဆုံးအနေနဲ့ပြောချင်တာကတော့ ကိုကိုနဲ့ ဘေဘီနဲ့အတူတူ မွေးနေ့တိုင်းမှာအတူတူရှိချင်ပါတယ်။
+                            ကိုကိုကပုံမှန်ဆို စာအရှည်တွေရိုက်လေ့မရှိပေမဲ့ ဘေဘီ့အတွက်ကိုကို ကြိုးစားပြီးရိုက်ဖြစ်ခဲ့ပါတယ်။
+                            ဒီထက်လည်းပိုပြီးချစ်နေပေးမှာမို့ ကိုကို့ကိုပဲ ဆက်ချစ်ပေးဖို့တောင်းဆိုချင်ပါတယ်...
+                        </p>
+                    <p>ချစ်ခြင်းများဖြင့်</p>
+                <div class="flowers-container">
+            <img src="images/birthday.gif" alt="birthday-cake">
+                </div>
+            </div>
+    </div>
+</body>
+
+</html>

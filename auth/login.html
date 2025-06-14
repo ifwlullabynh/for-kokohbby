@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../styles/auth.css">
+    <link rel="icon" href="../images/favicon.ico">
+</head>
+
+<body>
+    <div class="auth-container">
+        <h1>Exclusive Access</h1>
+        <p>Enter the secret code to continue</p>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Secret Code</label>
+                <input type="password" id="password" required>
+            </div>
+            
+            <button type="submit">Unlock</button>
+        </form>
+
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

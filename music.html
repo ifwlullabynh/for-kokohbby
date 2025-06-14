@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="icon" href="images/favicon.ico">
+    <style>
+        .music-player {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            margin: 50px auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .song-title {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .control-btn {
+            background: rgba(255, 107, 129, 0.3);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 107, 129, 0.5);
+            transform: scale(1.1);
+        }
+
+        .control-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        #playBtn {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 107, 129, 0.4);
+        }
+
+        #playBtn:hover {
+            background: rgba(255, 107, 129, 0.7);
+        }
+
+        .timeline {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 20px 0;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b81, #ff8e8e);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+            position: relative;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                        rgba(255,255,255,0.2) 0%, 
+                        rgba(255,255,255,0.5) 50%, 
+                        rgba(255,255,255,0.2) 100%);
+            animation: progressShine 2s infinite linear;
+            border-radius: 3px;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .song-title {
+            font-size: 1.5em;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.6);
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+        }
+
+        .time-display span {
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(2px);
+        }
+    </style>
+</head>
+<body>
+    <script>
+    if (!sessionStorage.getItem('birthdaySiteAuthenticated')) {
+        window.location.href = "auth/login.html";
+    }
+    </script>
+    <nav class="custom-icon-nav">
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+                <span class="nav-text">Home</span>
+            </a>
+            <a href="love-letter.html" class="nav-link">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/>
+            </svg>
+            <span class="nav-text">Love Letter</span>
+        </a>
+        <a href="music.html" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+                <span class="nav-text">Music</span>
+            </a>
+        </div>
+        <button onclick="logout()" class="logout-btn">
+            <svg class="nav-icon" viewBox="0 0 24 24">
+                <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+            </svg>
+            <span class="nav-text">Logout</span>
+        </button>
+    </nav>
+
+    <div class="music-player">
+        <div class="song-title">lullaby - Zenith For Kokoh Bby</div>
+
+        <div class="timeline" id="timeline">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <div class="time-display">
+            <span id="current-time">0:00</span>
+            <span id="total-time">0:00</span>
+        </div>
+
+        <div class="controls">
+            <button class="control-btn" onclick="rewind()" title="Rewind 10s">
+                <svg viewBox="0 0 24 24">
+                    <path d="M11 16V8L4 12L11 16M18 16V8L11 12L18 16"/>
+                </svg>
+            </button>
+
+            <button class="control-btn" id="playBtn" onclick="playPause()" title="Play/Pause">
+                <svg viewBox="0 0 24 24" id="playIcon">
+                    <path d="M8 5V19L19 12L8 5Z"/>
+                </svg>
+            </button>
+
+            <button class="control-btn" onclick="stopSong()" title="Stop">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 6H18V18H6V6Z"/>
+                </svg>
+            </button>
+
+            <button class="control-btn" onclick="forward()" title="Forward 10s">
+                <svg viewBox="0 0 24 24">
+                    <path d="M13 16V8L20 12L13 16M6 16V8L13 12L6 16"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <audio id="song" src="audio/music-bd.mp3"></audio>
+
+    <script>
+        const song = document.getElementById('song');
+        const progress = document.getElementById('progress');
+        const timeline = document.getElementById('timeline');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const totalTimeDisplay = document.getElementById('total-time');
+        const playBtn = document.getElementById('playBtn');
+        const playIcon = document.getElementById('playIcon');
+        let isPlaying = false;
+        let progressAnimationFrame;
+
+        song.addEventListener('loadedmetadata', () => {
+            const totalMinutes = Math.floor(song.duration / 60);
+            const totalSeconds = Math.floor(song.duration % 60);
+            totalTimeDisplay.textContent = `${totalMinutes}:${totalSeconds < 10 ? '0' : ''}${totalSeconds}`;
+        });
+
+        function updateProgress() {
+            const progressPercent = (song.currentTime / song.duration) * 100;
+            progress.style.width = `${progressPercent}%`;
+
+            const currentMinutes = Math.floor(song.currentTime / 60);
+            const currentSeconds = Math.floor(song.currentTime % 60);
+            currentTimeDisplay.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds}`;
+
+            if (isPlaying) {
+                progressAnimationFrame = requestAnimationFrame(updateProgress);
+            }
+        }
+
+        song.addEventListener('play', () => {
+            progressAnimationFrame = requestAnimationFrame(updateProgress);
+        });
+
+        song.addEventListener('pause', () => {
+            cancelAnimationFrame(progressAnimationFrame);
+        });
+
+        timeline.addEventListener('click', function(e) {
+            const timelineWidth = this.offsetWidth;
+            const clickPosition = e.offsetX;
+            const seekTime = (clickPosition / timelineWidth) * song.duration;
+            song.currentTime = seekTime;
+        });
+
+        function playPause() {
+            if (isPlaying) {
+                song.pause();
+                playIcon.innerHTML = '<path d="M8 5V19L19 12L8 5Z"/>';
+            } else {
+                song.play();
+                playIcon.innerHTML = '<path d="M14 19H18V5H14V19ZM6 19H10V5H6V5Z"/>';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function stopSong() {
+            song.pause();
+            song.currentTime = 0;
+            playIcon.innerHTML = '<path d="M8 5V19L19 12L8 5Z"/>';
+            isPlaying = false;
+        }
+
+        function rewind() {
+            song.currentTime = Math.max(0, song.currentTime - 10);
+        }
+
+        function forward() {
+            song.currentTime = Math.min(song.duration, song.currentTime + 10);
+        }
+
+        window.addEventListener('beforeunload', () => {
+            cancelAnimationFrame(progressAnimationFrame);
+        });
+    </script>
+
+<script>
+    function logout() {
+        sessionStorage.removeItem('birthdaySiteAuthenticated');
+        window.location.href = "auth/login.html";
+    }
+</script>
+
+</body>
+</html>
